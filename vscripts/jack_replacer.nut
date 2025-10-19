@@ -5,7 +5,7 @@
 
 // Path to custom jack model,
 // model REQUIRES a bone named "weapon_bone"
-// in order to be displayed correctly
+// in order to be displayed correctly in first person
 local CUSTOM_JACK_MODEL = "models/passtime/ball/passtime_ball_skull.mdl"
 
 // Alternative world model to be displayed,
@@ -25,10 +25,9 @@ PASS_TIME_JACK <- null
 MAX_WEAPONS <- 8
 
 if (JACK_MODEL_ALT == null || JACK_MODEL_ALT == "")
-{
 	JACK_MODEL_ALT = CUSTOM_JACK_MODEL
+else
 	PrecacheModel(JACK_MODEL_ALT)
-}
 
 function jack_think()
 {
@@ -132,7 +131,7 @@ CollectEventsInScope
   			NetProps.SetPropIntArray(weapon, "m_nModelIndexOverrides", JackModelIndex, i)
 
 		setWorldModel(player, JackModelIndex)
-		setViewdModel(player, CUSTOM_JACK_MODEL)
+		setViewModel(player, CUSTOM_JACK_MODEL)
 
 		scope.fpWearable.DisableDraw()
 		scope.tpWearable.DisableDraw()
@@ -228,7 +227,7 @@ function setWorldModel(entity, modelIndex)
 	scope.tpWearable <- tpWearable
 }
 
-function setViewdModel(entity, model)
+function setViewModel(entity, model)
 {
 	local scope = entity.GetScriptScope()
 	local viewModel = SpawnEntityFromTable("tf_wearable_vm", { })
